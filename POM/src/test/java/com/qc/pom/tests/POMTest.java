@@ -18,7 +18,7 @@ public class POMTest extends BaseClass {
 		doSetup();
 	}
 	
-	@Test(enabled = true, priority=1)
+	@Test(priority=1)
 	public void loginTest(){
 		LoginPage login = new LoginPage(driver);
 		
@@ -29,7 +29,7 @@ public class POMTest extends BaseClass {
 		home.doLogout();
 	}
 	
-	@Test(enabled = true, dataProvider="login", priority=0)
+	@Test(dataProvider="login", priority=0)
 	public void loginWithInvalid(String uName, String uPass) {
 		
 		LoginPage login = new LoginPage(driver);
@@ -41,7 +41,7 @@ public class POMTest extends BaseClass {
 	
 	
 
-	@Test(enabled = true, priority=2)
+	@Test(priority=2)
 	public void registerTest() {
 		driver.findElement(By.linkText("Register a new membership")).click();
 		
