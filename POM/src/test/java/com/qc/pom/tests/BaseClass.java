@@ -1,13 +1,17 @@
 package com.qc.pom.tests;
 
+import java.io.IOException;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.DataProvider;
 
+import com.qc.pom.utils.ReadData;
+
 public class BaseClass {
 
 	protected WebDriver driver;
-	
+	ReadData data = new ReadData();
 	public void doSetup(){
 		System.setProperty("webdriver.chrome.driver", "drivers/chromedriver_v.90.exe");
 		driver = new ChromeDriver();
@@ -16,16 +20,15 @@ public class BaseClass {
 	}
 	
 	@DataProvider(name="login")
-	public Object[][] getLoginInvalidData(){
+	public Object[][] getLoginInvalidData() throws IOException{
 		
-		return new Object[][] {
-			new Object[] {"", ""},
-			new Object[] {"", "123456"},
-			new Object[] {"queuecodes@gmail.com", ""},
-			new Object[] {"queuecodes@gmail", "123456"},
-			new Object[] {"queuecodes@gmail.com", "12345"},
-			new Object[] {"queuecodes@gmail", "12345"}
-		};
+		return data.getLoginData("Sheet1");
+	}
+	
+	@DataProvider(name="register")
+	public Object[][] getRegisterInvalidData() throws IOException{
+		
+		return data.getLoginData("Sheet2");
 	}
 	
 }

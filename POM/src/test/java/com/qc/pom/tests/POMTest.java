@@ -14,47 +14,59 @@ import com.qc.pom.pages.RegisterPage;
 public class POMTest extends BaseClass {
 
 	@BeforeSuite
-	public void launching(){
+	public void launching() {
 		doSetup();
 	}
-	
-	@Test(priority=1)
-	public void loginTest(){
+
+	@Test(dataProvider = "login", priority = 0)
+	public void loginWithInvalid(String uName, String uPass) {
+
 		LoginPage login = new LoginPage(driver);
-		
-		HomePage home= login.doLogin("queuecodes@gmail.com", "123456");
-		
+
+		boolean result = login.doLoginWithInvalid(uName, uPass);
+
+		assertTrue(result);
+	}
+	
+	@Test(priority = 1)
+	public void loginTest() {
+		LoginPage login = new LoginPage(driver);
+
+		HomePage home = login.doLogin("queuecodes@gmail.com", "123456");
+
 		assertTrue(home.homeTitleAssertion());
-		
+
 		home.doLogout();
 	}
-	
-	@Test(dataProvider="login", priority=0)
-	public void loginWithInvalid(String uName, String uPass) {
-		
-		LoginPage login = new LoginPage(driver);
-		
-		boolean result = login.doLoginWithInvalid(uName, uPass);
-		
+
+	@Test(priority = 2, dataProvider = "register")
+	public void registerWithInvalidTest(String uName, String uMobile, String uEmail, String uPass) {
+		String title= driver.getTitle();
+		if(title.equals("Queue Codes | Log in")) {
+			goToRegister();
+		}
+		RegisterPage register = new RegisterPage(driver);
+
+		boolean result = register.doInvalidDataRegister(uName, uMobile, uEmail, uPass);
+
 		assertTrue(result);
 	}
-	
-	
 
-	@Test(priority=2)
+	@Test(priority = 3)
 	public void registerTest() {
-		driver.findElement(By.linkText("Register a new membership")).click();
-		
 		RegisterPage register = new RegisterPage(driver);
-		
-		boolean result = register.doRegister("Queue", "9145425494", "queue@gmail.com","12345");
-		
+
+		boolean result = register.doRegister("Queue", "9145425494", "queue@gmail.com", "12345");
+
 		assertTrue(result);
+	}
+	public void goToRegister() {
+		driver.findElement(By.linkText("Register a new membership")).click();
 	}
 	
 	@AfterSuite
-	public void closeBrowser(){
+	public void closeBrowser() {
 		driver.close();
 	}
-	
+
 }

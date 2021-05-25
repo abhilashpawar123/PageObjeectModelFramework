@@ -32,18 +32,22 @@ public class RegisterPage {
 	WebElement submit;
 	
 	public void enterName(String data) {
+		name.clear();
 		name.sendKeys(data);
 	}
 	
 	public void enterMobile(String data) {
+		mobile.clear();
 		mobile.sendKeys(data);
 	}
 	
 	public void enterEmail(String data) {
+		email.clear();
 		email.sendKeys(data);
 	}
 	
 	public void enterPassword(String data) {
+		password.clear();
 		password.sendKeys(data);
 	}
 	
@@ -67,6 +71,16 @@ public class RegisterPage {
 		clickOnSubmit();
 		String actualMsg = getAlert();
 		return actualMsg.equalsIgnoreCase("User registered successfully.");
+	}
+	
+	public boolean doInvalidDataRegister(String name, String mobile, String email, String pass) {
+		enterName(name);
+		enterMobile(mobile);
+		enterEmail(email);
+		enterPassword(pass);
+		clickOnSubmit();
+		String actualMsg = driver.getTitle();
+		return actualMsg.equalsIgnoreCase("Queue Codes | Registration Page");
 	}
 
 }
