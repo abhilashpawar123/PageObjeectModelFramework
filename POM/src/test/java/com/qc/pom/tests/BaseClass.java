@@ -15,7 +15,7 @@ public class BaseClass {
 	public void doSetup(){
 		System.setProperty("webdriver.chrome.driver", "drivers/chromedriver_v.90.exe");
 		driver = new ChromeDriver();
-		driver.get("file:///D:/QueueCodes/Software/Selenium/Offline%20Website/index.html");
+		driver.get("file:///D:/seleniium-data/Offline Website/index.html");
 		driver.manage().window().maximize();
 	}
 	
